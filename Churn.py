@@ -10,8 +10,8 @@ import pickle
 model = load_model('best_model.pkl')
 
 # Load the trained StandardScaler
-with open('scaled_data.pkl', 'rb') as file:
-    scaled = pickle.load(file)
+with open('scaler_model.joblib', 'rb') as file:
+    scaled = joblib.load(file)
 
 # Streamlit app
 def main():
