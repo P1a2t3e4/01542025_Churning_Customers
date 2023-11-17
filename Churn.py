@@ -6,6 +6,13 @@ import joblib
 import pickle
 
 # Load the trained model
+
+
+#model = load_model('best_model.pkl', custom_objects={'YourCustomLayer': YourCustomLayer})
+
+class YourCustomLayer(tf.keras.layers.Layer):
+    # Your custom layer implementation
+    pass
 model = load_model('best_model.pkl', custom_objects={'YourCustomLayer': YourCustomLayer})
 
 
