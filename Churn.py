@@ -6,7 +6,8 @@ import joblib
 import pickle
 
 # Load the trained model
-model = load_model('best_model.pkl','rb')
+model = load_model('best_model.pkl', custom_objects={'YourCustomLayer': YourCustomLayer})
+
 
 # Load the trained StandardScaler
 with open('scaler_model.joblib', 'rb') as file:
