@@ -21,7 +21,7 @@ def main():
     tenure = st.slider('Tenure', 0, 90, 50)
     monthly_charges = st.slider('Monthly Charges', 0.0, 200.0, 100.0)
     total_charges = st.slider('Total Charges', 0.0, 5000.0, 2500.0)
-    contract = st.selectbox('Contract', ['month-to-month, 'one year', 'Two years'])
+    contract = st.selectbox('Contract', ['month-to-month,'one year','Two years'])
     online_security = st.selectbox('Online Security', ['No', 'yes', 'No internet service'])
     payment_method = st.selectbox('Payment Method', ['electronic check', 'mailed check', 'card'])
     tech_support = st.selectbox('Tech Support', ['No', 'yes', 'No internet service'])
