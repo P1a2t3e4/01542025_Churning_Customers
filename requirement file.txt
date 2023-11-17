@@ -1,6 +1,0 @@
-streamlit 
-scikit-learn
-pandas 
-tensorflow==2.14.0
-keras==2.14.0
-scikeras==0.12.0 
