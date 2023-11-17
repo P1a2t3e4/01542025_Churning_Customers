@@ -45,18 +45,7 @@ def main():
             'gender': [gender]
         })
 
-        # Encode categorical variables
-        label_encoder = LabelEncoder()
-        categorical_columns = ['Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'OnlineBackup', 'gender']
-        
-        for column in categorical_columns:
-            user_input[column] = label_encoder.fit_transform(user_input[column])
-
-        # Scale the input
-        scaled_input = scaled.transform(user_input)
-
-        # Make a prediction
-        prediction = model.predict(scaled_input)
+     
 
         # Display the result
         churn_probability = prediction[0]
