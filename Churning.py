@@ -51,7 +51,7 @@ if submit:
             #raise ValueError("Number of columns in newData does not match the original data.")
 
 
-        print(newData.shape)  # Print the shape of newData
+        #print(newData.shape)  # Print the shape of newData
 
         newData = newData.astype(float)  # Convert all columns to float, for example
 
