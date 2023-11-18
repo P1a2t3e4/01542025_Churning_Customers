@@ -28,18 +28,19 @@ def main():
 
     # Make a prediction
   if st.button('Predict Churn'):
+      
         # Transform user input
         user_input = pd.DataFrame({
-            'tenure': [tenure],
-            'MonthlyCharges': [MonthlyCharges],
-            'TotalCharges': [TotalCharges],
-            'Contract': [Contract],
-            'OnlineSecurity': [OnlineSecurity],
-            'PaymentMethod': [PaymentMethod],
-            'TechSupport': [TechSupport],
-            'InternetService': [InternetService],
-            'gender': [gender],
-            'OnlineBackup': [OnlineBackup]
+        'tenure': [tenure],
+        'MonthlyCharges': [MonthlyCharges],
+        'TotalCharges': [TotalCharges],
+        'Contract': [Contract],
+        'OnlineSecurity': [OnlineSecurity],
+        'PaymentMethod': [PaymentMethod],
+        'TechSupport': [TechSupport],
+        'InternetService': [InternetService],
+        'gender': [gender],
+        'OnlineBackup': [OnlineBackup]
         })
 
      class CustomScaler(StandardScaler):
