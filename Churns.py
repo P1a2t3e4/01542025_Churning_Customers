@@ -49,9 +49,10 @@ def main():
         for column in categorical_columns:
             user_input[column] = label_encoder.fit_transform(user_input[column])
 
-        # Ensure feature names match the training phase
-        expected_features = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup']
-        assert user_input.columns.tolist() == expected_features, "Feature names do not match"
+        # Set feature names for the scaler
+        user_input_columns = user_input.columns
+        scaler_input_features = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup']
+        scaler.set_params(input_features=scaler_input_features)
 
         # Scale the input
         scaled_input = scaler.transform(user_input)
