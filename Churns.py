@@ -42,11 +42,17 @@ attributes = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract',
               'InternetService', 'gender', 'OnlineBackup']
 
 if submit:
-    newData = pd.DataFrame([user_response], columns=attributes)
-    scaledData = scaler.transform(newData)
-    predict = model.predict(scaledData)
-    st.subheader("The customer churn rate is " + str(round(predict[0])), divider='rainbow')
-    st.text("There's a 95% chance that the rating is between " +
-            str(round(predict[0] - (0.8809915725973115 * 1.96))) +
+    # Create a DataFrame with a single row for user input
+    user_input_df = pd.DataFrame([user_response], columns=attributes)
+
+    # Transform user input using the loaded scaler
+    scaled_data = scaler.transform(user_input_df.values.reshape(1, -1))
+
+    # Make predictions using the loaded model
+    prediction = model.predict(scaled_data)
+
+    st.subheader("The customer churn rate is " + str(round(prediction[0])), divider='rainbow')
+    st.text("There's a 95% confidence interval that the rating is between " +
+            str(round(prediction[0] - (0.8809915725973115 * 1.96))) +
             " and " +
-            str(round(predict[0] + (0.8809915725973115 * 1.96))))
+            str(round(prediction[0] + (0.8809915725973115 * 1.96))))
