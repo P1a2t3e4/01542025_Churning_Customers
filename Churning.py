@@ -32,6 +32,7 @@ def preprocess_input(user_input):
 
     return user_input
 
+
 # Streamlit app
 def main():
     st.title("Customer Churn Prediction")
@@ -46,13 +47,19 @@ def main():
         # Preprocess user input
         input_df = pd.DataFrame([preprocess_input(user_input)])
 
+        # Compile the model before making predictions (assuming it's a Keras model)
+        best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+        # Check the input data shape before making predictions
+        print("Input data shape:", input_df.shape)
+
+        # Make predictions using the best model
+        prediction = best_model.predict(input_df)
+
         # Display the preprocessed input DataFrame
         st.write("## Preprocessed Input Data")
         st.write(input_df)
 
-        # Make prediction using the best model
-        prediction = best_model.predict(input_df)
-        
         # Display the prediction
         st.write("## Prediction")
         st.write(f"The predicted churn status is: {prediction[0]}")
