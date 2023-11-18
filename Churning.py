@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 import pickle
 
 # Load the trained model
-model = load_model('best_model')
+model = load_model('best_model.h5')
 
 # Load the trained StandardScaler
 with open('scaler.pkl', 'rb') as file:
