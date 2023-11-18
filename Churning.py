@@ -66,7 +66,7 @@ if submit:
         label_encoder = LabelEncoder()
         #user_input[column] = label_encoder.fit_transform(user_input[column])
 
-        user_input[column].fillna("unknown", inplace=True)
+#user_input[column].fillna("unknown", inplace=True)
         user_input[column] = label_encoder.fit_transform(user_input[column])
 
 
