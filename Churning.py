@@ -18,24 +18,29 @@ st.set_page_config(
 )
 
 st.sidebar.header("Enter Customer Details", divider='rainbow')
-gender = st.radio("What is your gender", ["Male", "Female"])
-SeniorCitizen = st.radio("Are you a senior citizen", ["YES", "NO"])
+MonthlyCharges = st.slider("What is your monthly charges",0,120)
 tenure = st.slider("How long have you been a customer",1,100)
-InternetService = st.radio("What is your internet service",["DSL","Fiber optic","No"])
-OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
-OnlineBackup = st.radio("Do you have online backup",["YES","NO"])
-TechSupport = st.radio("Do you have tech support",["YES","NO"])
+TotalCharges = st.slider("What is your total charges",0,10000)
 Contract = st.radio("What is your contract",["Month-to-month","One year","Two year"])
 PaymentMethod = st.radio("What is your payment method",["Electronic check","Mailed check","Bank transfer (automatic)","Credit card (automatic)"])
-MonthlyCharges = st.slider("What is your monthly charges",0,120)
-TotalCharges = st.slider("What is your total charges",0,10000)
-submit =st.button("Submit")
-user_response = [gender,SeniorCitizen,tenure,InternetService,OnlineSecurity,
-                 OnlineBackup,TechSupport,Contract,PaymentMethod,MonthlyCharges,TotalCharges]
+OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
+TechSupport = st.radio("Do you have tech support",["YES","NO"])
+gender = st.radio("What is your gender", ["Male", "Female"])
+InternetService = st.radio("What is your internet service",["DSL","Fiber optic","No"])
+OnlineBackup = st.radio("Do you have online backup",["YES","NO"])
 
-attributes = ['gender', 'SeniorCitizen', 'tenure', 'InternetService',
-       'OnlineSecurity', 'OnlineBackup', 'TechSupport', 'Contract',
-       'PaymentMethod', 'MonthlyCharges', 'TotalCharges']
+
+
+
+
+submit =st.button("Submit")
+user_response = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
+       'InternetService', 'OnlineBackup']
+
+attributes = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
+       'InternetService', 'OnlineBackup']
 if submit:
         newData = pd.DataFrame([user_response],columns= attributes)
         scaledData = scaler_module.transform(newData)
