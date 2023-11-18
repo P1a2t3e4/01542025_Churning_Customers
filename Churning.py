@@ -8,13 +8,20 @@ from sklearn.preprocessing import StandardScaler
 best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
-label_encoder_file = "label_encoder.pkl"
-if os.path.exists(label_encoder_file):
-    with open(label_encoder_file, 'rb') as file:
-        label_encoder = pickle.load(file)
-else:
-    st.error("Label encoder file not found. Make sure to fit and save the label encoder during training.")
-    st.stop()
+# Encode categorical variables
+label_encoder = LabelEncoder()
+categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
+       'InternetService', 'OnlineBackup']
+        
+for column in categorical_columns:
+
+    user_input[column] = label_encoder.fit_transform(user_input[column])
+
+        # Scale the input
+    scaled_input = scaled.transform(user_input)
+
+
 
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
