@@ -8,13 +8,7 @@ from sklearn.preprocessing import StandardScaler
 best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
-# Load the label encoder only if it exists (check if the file exists)
-label_encoder_file = "label_encoder.pkl"
-if os.path.exists(label_encoder_file):
-    label_encoder = pickle.load(open(label_encoder_file, "rb"))
-else:
-    st.error("Label encoder file not found. Make sure to fit and save the label encoder during training.")
-    st.stop()
+
 
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
