@@ -13,6 +13,9 @@ best_model_file = "best_model .pkl"
 with open(best_model_file, 'rb') as file:
     best_model = pickle.load(file)
 
+# Compile the model
+best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
                 'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
