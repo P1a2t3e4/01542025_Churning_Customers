@@ -12,10 +12,10 @@ with open(r'scaler.pkl', 'rb') as file:
 
 # Streamlit app
 def main():
-    st.title('Churn Prediction App')
+    st.title('Churning Customer  Prediction App')
 
     # Collect user input
-    tenure = st.slider("How long have you been a customer", 1, 100)
+    tenure = st.slider("What is your tenure", 1, 100)
     MonthlyCharges = st.slider("What is your monthly charges", 0, 120)
     TotalCharges = st.slider("What is your total charges", 0, 10000)
     Contract = st.radio("What is your contract", ["Month-to-month", "One year", "Two year"])
