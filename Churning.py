@@ -75,6 +75,9 @@ predictions = best_model.predict(X_input_scaled)
 
 
 # Streamlit app
+# ... (previous code)
+
+# Streamlit app
 def main():
     st.title("Customer Churn Prediction")
 
@@ -86,33 +89,38 @@ def main():
         widget_id = f"{feature}_input"
         user_input[feature] = st.sidebar.text_input(f"Enter {feature}", key=widget_id)
 
-    # ... (previous code)
+    if st.sidebar.button("Predict"):
+        # Preprocess user input
+        user_input_df = pd.DataFrame([preprocess_input(user_input)])
 
-if st.sidebar.button("Predict"):
-    # Preprocess user input
-    input_df = pd.DataFrame([preprocess_input(user_input)])
+        # Display the preprocessed input DataFrame
+        st.write("## Preprocessed Input Data")
+        st.write(user_input_df)
 
-    # Compile the model before making predictions
-    best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        # Scale the preprocessed input data
+        try:
+            # Assuming 'scaler' is already loaded
+            X_input_scaled = scaler.transform(user_input_df)
+            st.write("Scaling successful")
+        except Exception as e:
+            st.error(f"Scaling failed. Error: {e}")
+            st.stop()
 
-    # Check the input data shape before making predictions
-    st.write("Input data shape:", input_df.shape)
+        # Check the input data shape after scaling
+        st.write("Input data shape after scaling:", X_input_scaled.shape)
 
-    try:
-        # Make predictions using the best model
-        prediction = best_model.predict(input_df)
-        st.write("Prediction successful")
-    except Exception as e:
-        st.error(f"Prediction failed. Error: {e}")
-        st.stop()
+        try:
+            # Make predictions using the best model
+            prediction = best_model.predict(X_input_scaled)
+            st.write("Prediction successful")
+        except Exception as e:
+            st.error(f"Prediction failed. Error: {e}")
+            st.stop()
 
-    # Display the preprocessed input DataFrame
-    st.write("## Preprocessed Input Data")
-    st.write(input_df)
+        # Display the prediction
+        st.write("## Prediction")
+        if 'prediction' in locals():
+            st.write(f"The predicted churn status is: {prediction[0]}")
 
-    # Display the prediction
-    st.write("## Prediction")
-    if 'prediction' in locals():
-        st.write(f"The predicted churn status is: {prediction[0]}")
-
-# ... (remaining code)
+if __name__ == "__main__":
+    main()
