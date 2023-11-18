@@ -9,7 +9,7 @@ with open(r'best_model (1).pkl', 'rb') as file:
 
 with open(r'scaler.pkl', 'rb') as file:
     scaler = pickle.load(file)
-
+#...
 st.set_page_config(
     page_title="CUSTOMER CHURN PREDICTIONS",
     page_icon=":wave:",
