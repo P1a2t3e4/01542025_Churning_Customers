@@ -70,8 +70,8 @@ def main():
         st.write(f"The predicted churn status is: {prediction[0]}")
 
 @tf.function
-def prediction = predict_with_model(best_model, input_df):
-  return model.predict(input_df)
+def prediction_with_model(model, data):
+    return model.predict(data)
 
 
   
