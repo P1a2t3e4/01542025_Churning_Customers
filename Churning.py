@@ -50,17 +50,29 @@ if submit:
         'OnlineBackup': OnlineBackup
     }
 
-    # Create a DataFrame with user input
-    user_data = pd.DataFrame([user_response])
 
-    # Ensure that columns have the correct data types
-    user_data = user_data.astype({'MonthlyCharges': float, 'tenure': float, 'TotalCharges': float})
+     # Encode categorical variables
+        label_encoder = LabelEncoder()
+        categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
+       'InternetService', 'OnlineBackup']
+        
+        for column in categorical_columns:
+            user_input[column] = label_encoder.fit_transform(user_input[column])
 
-    # Transform user input with the scaler
-    scaled_data = scaler_module.transform(user_data)
+        # Scale the input
+        scaled_input = scaled.transform(user_input)
+    # # Create a DataFrame with user input
+    # user_data = pd.DataFrame([user_response])
+
+    # # Ensure that columns have the correct data types
+    # user_data = user_data.astype({'MonthlyCharges': float, 'tenure': float, 'TotalCharges': float})
+
+    # # Transform user input with the scaler
+    # scaled_data = scaler_module.transform(user_data)
 
     # Make prediction with the model
-    predict = best_module.predict(scaled_data)
+    predict = best_module.predict(scaled_input )
 
     # Display the prediction
     st.subheader(f"The customer churn rate is {round(predict[0], 2)}", divider='rainbow')
