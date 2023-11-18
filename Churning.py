@@ -3,6 +3,8 @@ import pickle
 import streamlit as st
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
 
 # Load the trained model
 with open(r'best_model .pkl', 'rb') as file:
