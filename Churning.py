@@ -39,6 +39,7 @@ def preprocess_input(user_input):
 
 
 # Streamlit app
+# Streamlit app
 def main():
     st.title("Customer Churn Prediction")
 
@@ -46,7 +47,9 @@ def main():
     st.sidebar.header("User Input")
     user_input = {}
     for feature in top_features:
-        user_input[feature] = st.sidebar.text_input(f"Enter {feature}", "")
+        # Append a unique identifier to the feature name for the widget ID
+        widget_id = f"{feature}_input"
+        user_input[feature] = st.sidebar.text_input(f"Enter {feature}", key=widget_id)
 
     if st.sidebar.button("Predict"):
         # Preprocess user input
@@ -76,10 +79,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-  
-
-# ...
-
-if __name__ == "__main__":
-    main()
