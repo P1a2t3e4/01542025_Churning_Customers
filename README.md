@@ -7,12 +7,12 @@ This Streamlit web application is designed to predict the churn rate of customer
 Features
 User-Friendly Interface Streamlit sliders and selectors for easy input of customer details.
 Predictive Analytics: Utilizes a pickled machine learning model to forecast customer churn rates.
-*Scalable Infrastructure Implements joblib scaler for input data normalization, ensuring reliable prediction outputs.
+*Scalable Infrastructure Implements w scaler for input data normalization, ensuring reliable prediction outputs.
 
 Repository Contents
 Churn.py The main Python script that runs the Streamlit app.
-best_model.pkl Serialized version of the machine learning model used for predictions.
-scaler_model.joblib The scaling model to normalize input features for prediction.
+best_model (1).pkl Serialized version of the machine learning model used for predictions.
+scaler_model.pkl The scaling model to normalize input features for prediction.
 requirements.txt  A list of Python libraries required to run the app.
 
 Installation & Usage
@@ -25,3 +25,6 @@ The app takes in parameters such as tenure, monthly charges, and service details
 
 Contribution
 Feel free to fork this repository, submit pull requests, or send suggestions to improve the application.
+
+This  is the link to my screen recording : 
+https://drive.google.com/file/d/1MhPoKJEVmPsKicpL7A4PZE9l3I4EhqFO/view?usp=sharing
