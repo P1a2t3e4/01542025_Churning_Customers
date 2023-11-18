@@ -42,7 +42,7 @@ attributes = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
        'InternetService', 'OnlineBackup']
 if submit:
-        newData = newData.dropna()  # Drop rows with missing values
+        
     # Assuming numerical_columns contains the names of numerical columns
         newData[numerical_columns] = newData[numerical_columns].apply(pd.to_numeric, errors='coerce')
         
