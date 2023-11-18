@@ -71,7 +71,10 @@ def main():
 
 @tf.function
 def prediction = predict_with_model(best_model, input_df):
-    return model.predict(input_df)
+  return model.predict(input_df)
+
+
+  
 
 # ...
 
