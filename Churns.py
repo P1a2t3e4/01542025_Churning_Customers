@@ -4,25 +4,11 @@ from keras.models import load_model
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 import pickle
 
-# CustomScaler class to ensure consistent feature names
-class CustomScaler(StandardScaler):
-    def __init__(self, input_features=None, **kwargs):
-        super().__init__(**kwargs)
-        self.input_features = input_features
-
-    def transform(self, X, y=None, **kwargs):
-        if self.input_features:
-            X = X[self.input_features]
-        return super().transform(X, y, **kwargs)
-
 with open(r'best_model (1).pkl', 'rb') as file:
     model = pickle.load(file)
 
 with open(r'scaler.pkl', 'rb') as file:
     scaler = pickle.load(file)
-
-# Set the input features for the custom scaler
-scaler = CustomScaler(input_features=['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup'])
 
 # Streamlit app
 def main():
@@ -62,6 +48,10 @@ def main():
 
         for column in categorical_columns:
             user_input[column] = label_encoder.fit_transform(user_input[column])
+
+        # Ensure feature names match the training phase
+        expected_features = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup']
+        assert user_input.columns.tolist() == expected_features, "Feature names do not match"
 
         # Scale the input
         scaled_input = scaler.transform(user_input)
