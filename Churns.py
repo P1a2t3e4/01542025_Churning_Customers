@@ -49,19 +49,25 @@ def main():
         for column in categorical_columns:
             user_input[column] = label_encoder.fit_transform(user_input[column])
 
-        # Scale the input
-        #scaled_input = scaler.transform(user_input)
-
-        # Make a prediction
-        prediction = model.predict(scaled_input)
-
-        # ... (previous code)
+    
 
         # Scale the input
         scaled_input = scaler.transform(user_input)
         
         # Set feature names
-        scaled_input = scaler.set_params(input_features=user_input.columns).transform(scaled_input)
+        scaled_input_with_names = scaler.set_params(input_features=user_input.columns).transform(scaled_input)
+        
+        # Make a prediction
+        prediction = model.predict(scaled_input_with_names)
+        
+        # ... (remaining code)
+
+
+        # Scale the input
+        #scaled_input = scaler.transform(user_input)
+        
+        # Set feature names
+        #scaled_input = scaler.set_params(input_features=user_input.columns).transform(scaled_input)
         
        
 
