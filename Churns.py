@@ -1,8 +1,8 @@
-import requests
-import pickle
 import streamlit as st
-import numpy as np
 import pandas as pd
+from keras.models import load_model
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+import pickle
 
 with open(r'best_model (1).pkl', 'rb') as file:
     model = pickle.load(file)
@@ -10,49 +10,65 @@ with open(r'best_model (1).pkl', 'rb') as file:
 with open(r'scaler.pkl', 'rb') as file:
     scaler = pickle.load(file)
 #...
-st.set_page_config(
-    page_title="CUSTOMER CHURN PREDICTIONS",
-    page_icon=":wave:",
-    layout="centered",
-    initial_sidebar_state="expanded",
-)
 
-st.sidebar.header("Enter Customer Details", divider='rainbow')
 
-tenure = st.slider("How long have you been a customer", 1, 100)
-MonthlyCharges = st.slider("What is your monthly charges", 0, 120)
-TotalCharges = st.slider("What is your total charges", 0, 10000)
-Contract = st.radio("What is your contract", ["Month-to-month", "One year", "Two year"])
-PaymentMethod = st.radio("What is your payment method",
-                        ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
-OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
-TechSupport = st.radio("Do you have tech support", ["YES", "NO"])
-InternetService = st.radio("What is your internet service", ["DSL", "Fiber optic", "No"])
-gender = st.radio("What is your gender", ["Male", "Female"])
-OnlineBackup = st.radio("Do you have online backup", ["YES", "NO"])
+# Streamlit app
+def main():
+    st.title('Churn Prediction App')
 
-submit = st.button("Submit")
+    # Collect user input
+    tenure = st.slider("How long have you been a customer", 1, 100)
+    MonthlyCharges = st.slider("What is your monthly charges", 0, 120)
+    TotalCharges = st.slider("What is your total charges", 0, 10000)
+    Contract = st.radio("What is your contract", ["Month-to-month", "One year", "Two year"])
+    PaymentMethod = st.radio("What is your payment method",["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
+    OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
+    TechSupport = st.radio("Do you have tech support", ["YES", "NO"])
+    InternetService = st.radio("What is your internet service", ["DSL", "Fiber optic", "No"])
+    gender = st.radio("What is your gender", ["Male", "Female"])
+    OnlineBackup = st.radio("Do you have online backup", ["YES", "NO"])
 
-user_response = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract',
-                 'PaymentMethod', 'OnlineSecurity', 'TechSupport',
-                 'InternetService', 'gender', 'OnlineBackup']
+    # Make a prediction
+    if st.button('Predict Churn'):
+        # Transform user input
+        user_input = pd.DataFrame({
+            'tenure': [tenure],
+            'MonthlyCharges': [monthly_charges],
+            'TotalCharges': [total_charges],
+            'Contract': [contract],
+            'OnlineSecurity': [online_security],
+            'PaymentMethod': [payment_method],
+            'TechSupport': [tech_support],
+            'InternetService': [internet_service],
+            'gender': [gender],
+            'OnlineBackup': [online_backup]
+            
+        })
 
-attributes = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract',
-              'PaymentMethod', 'OnlineSecurity', 'TechSupport',
-              'InternetService', 'gender', 'OnlineBackup']
+        # Encode categorical variables
+        label_encoder = LabelEncoder()
+        categorical_columns = ['Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'OnlineBackup', 'gender']
+        
+        for column in categorical_columns:
+            user_input[column] = label_encoder.fit_transform(user_input[column])
 
-if submit:
-    # Create a DataFrame with a single row for user input
-    user_input_df = pd.DataFrame([user_response], columns=attributes)
+        # Scale the input
+        scaled_input = scaled.transform(user_input)
 
-    # Transform user input using the loaded scaler
-    scaled_data = scaler.transform(user_input_df.values.reshape(1, -1))
+        # Make a prediction
+        prediction = model.predict(scaled_input)
 
-    # Make predictions using the loaded model
-    prediction = model.predict(scaled_data)
+        # Display the result
+        churn_probability = prediction[0]
+        churn_prediction = 'Yes, Customer will Churn' if churn_probability >= 0.5 else 'Customer will not Churn'
+        st.write(f'Churn Probability: {churn_probability}')
+        st.write(f'Prediction: {churn_prediction}')
 
-    st.subheader("The customer churn rate is " + str(round(prediction[0])), divider='rainbow')
-    st.text("There's a 95% confidence interval that the rating is between " +
-            str(round(prediction[0] - (0.8809915725973115 * 1.96))) +
-            " and " +
-            str(round(prediction[0] + (0.8809915725973115 * 1.96))))
+if _name_ == '_main_':
+    main(),
+
+
+
+
+
+
