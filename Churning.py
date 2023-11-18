@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 
 # Load the best model and preprocessing objects
 # Load the best model and preprocessing objects
-best_model = pickle.load(open("best_model.pkl", "rb"))
+best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
 label_encoder_file = "label_encoder.pkl"
