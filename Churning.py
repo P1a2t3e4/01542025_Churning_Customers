@@ -52,14 +52,18 @@ def main():
         # Preprocess user input
         input_df = pd.DataFrame([preprocess_input(user_input)])
 
-        # Compile the model before making predictions (assuming it's a Keras model)
+        # Compile the model before making predictions
         best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
         # Check the input data shape before making predictions
         print("Input data shape:", input_df.shape)
 
         # Make predictions using the best model
-        prediction = best_model.predict(input_df)
+        try:
+            prediction = best_model.predict(input_df)
+            print("Prediction successful")
+        except Exception as e:
+            print("Prediction failed. Error:", e)
 
         # Display the preprocessed input DataFrame
         st.write("## Preprocessed Input Data")
@@ -69,9 +73,8 @@ def main():
         st.write("## Prediction")
         st.write(f"The predicted churn status is: {prediction[0]}")
 
-@tf.function
-def prediction_with_model(model, data):
-    return model.predict(data)
+if __name__ == "__main__":
+    main()
 
 
   
