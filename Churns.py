@@ -50,16 +50,28 @@ def main():
             user_input[column] = label_encoder.fit_transform(user_input[column])
 
         # Scale the input
-        scaled_input = scaler.transform(user_input)
+        #scaled_input = scaler.transform(user_input)
 
         # Make a prediction
         prediction = model.predict(scaled_input)
+
+        # ... (previous code)
+
+        # Scale the input
+        scaled_input = scaler.transform(user_input)
+        
+        # Set feature names
+        scaled_input = scaler.set_params(input_features=user_input.columns).transform(scaled_input)
+        
+       
 
         # Display the result
         churn_probability = prediction[0]
         churn_prediction = 'Yes, Customer will Churn' if churn_probability >= 0.5 else 'Customer will not Churn'
         st.write(f'Churn Probability: {churn_probability}')
         st.write(f'Prediction: {churn_prediction}')
+
+
 
 if __name__ == '__main__':
     main()
