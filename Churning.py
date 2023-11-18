@@ -12,6 +12,12 @@ label_encoder_file = "label_encoder.pkl"
 if os.path.exists(label_encoder_file):
     with open(label_encoder_file, 'rb') as file:
         label_encoder = pickle.load(file)
+        # Check if label_encoder is fitted
+        if hasattr(label_encoder, "classes_"):
+            st.success("Label encoder loaded successfully.")
+        else:
+            st.error("Label encoder is not fitted. Make sure to fit and save the label encoder during training.")
+            st.stop()
 else:
     st.error("Label encoder file not found. Make sure to fit and save the label encoder during training.")
     st.stop()
