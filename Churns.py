@@ -42,6 +42,27 @@ def main():
             'OnlineBackup': [OnlineBackup]
         })
 
+        class CustomScaler(StandardScaler):
+    def __init__(self, input_features=None, **kwargs):
+        super().__init__(**kwargs)
+        self.input_features = input_features
+
+    def fit(self, X, y=None):
+        if self.input_features:
+            X = X[self.input_features]
+        return super().fit(X, y)
+
+    def transform(self, X, y=None, **kwargs):
+        if self.input_features:
+            X = X[self.input_features]
+        return super().transform(X, y, **kwargs)
+
+    def fit_transform(self, X, y=None, **kwargs):
+        if self.input_features:
+            X = X[self.input_features]
+        return super().fit_transform(X, y, **kwargs)
+
+
         # Encode categorical variables
         label_encoder = LabelEncoder()
         categorical_columns = ['Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'OnlineBackup', 'gender']
