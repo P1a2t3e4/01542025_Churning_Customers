@@ -27,7 +27,7 @@ def main():
     OnlineBackup = st.radio("Do you have online backup", ["YES", "NO"])
 
     # Make a prediction
-    if st.button('Predict Churn'):
+  if st.button('Predict Churn'):
         # Transform user input
         user_input = pd.DataFrame({
             'tenure': [tenure],
@@ -42,7 +42,7 @@ def main():
             'OnlineBackup': [OnlineBackup]
         })
 
-        class CustomScaler(StandardScaler):
+     class CustomScaler(StandardScaler):
     def __init__(self, input_features=None, **kwargs):
         super().__init__(**kwargs)
         self.input_features = input_features
@@ -61,7 +61,7 @@ def main():
         if self.input_features:
             X = X[self.input_features]
         return super().fit_transform(X, y, **kwargs)
-
+   
 
         # Encode categorical variables
         label_encoder = LabelEncoder()
