@@ -1,10 +1,11 @@
 import streamlit as st
+import os  # Import the os module
 import pickle
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 # Load the best model and preprocessing objects
-best_model = pickle.load(open("best_model .pkl", "rb"))
+best_model = pickle.load(open("best_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
 # Load the label encoder only if it exists (check if the file exists)
@@ -18,7 +19,7 @@ else:
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
-       'InternetService', 'OnlineBackup']  # Replace [...] with the actual definition or loading logic
+       'InternetService', 'OnlineBackup'] # Replace [...] with the actual definition or loading logic
 
 # Function to preprocess user input
 def preprocess_input(user_input):
@@ -64,3 +65,4 @@ if __name__ == "__main__":
     main()
 
 
+      
