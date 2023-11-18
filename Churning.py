@@ -9,7 +9,9 @@ scaler = pickle.load(open("scaler.pkl", "rb"))
 label_encoder = pickle.load(open("label_encoder.pkl", "rb"))
 
 # Assuming top_features is defined somewhere in your script or loaded from a file
-top_features = [...]  # Replace [...] with the actual definition or loading logic
+top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
+       'InternetService', 'OnlineBackup']  # Replace [...] with the actual definition or loading logic
 
 # Function to preprocess user input
 def preprocess_input(user_input):
