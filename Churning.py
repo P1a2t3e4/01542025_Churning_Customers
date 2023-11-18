@@ -42,7 +42,20 @@ attributes = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
        'InternetService', 'OnlineBackup']
 if submit:
-        
+        # Check for non-numeric values in specified columns
+        non_numeric_values = newData[numerical_columns].apply(pd.to_numeric, errors='coerce').isna().any()
+        print(non_numeric_values)
+
+        print(newData[numerical_columns][~newData[numerical_columns].applymap(np.isreal).all(1)])
+
+        newData[numerical_columns] = newData[numerical_columns].apply(pd.to_numeric, errors='coerce')
+        newData = newData.dropna(subset=numerical_columns)
+
+
+
+
+
+    
         #Assuming numerical_columns contains the names of numerical columns
         newData[numerical_columns] = newData[numerical_columns].apply(pd.to_numeric, errors='coerce')
         
