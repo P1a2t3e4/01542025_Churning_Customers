@@ -63,8 +63,8 @@ if submit:
       # from sklearn.preprocessing import LabelEncoder
 
     # Assuming 'column' is the name of the column you want to encode
-    label_encoder = LabelEncoder()
-    user_input[column] = label_encoder.fit_transform(user_input[column])
+        label_encoder = LabelEncoder()
+        user_input[column] = label_encoder.fit_transform(user_input[column])
 
 
         # Scale the input
