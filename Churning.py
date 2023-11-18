@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # Load the trained model
-with open(r'best_model .pkl', 'rb') as file:
+with open(r'best_model.pkl', 'rb') as file:
     best_module = pickle.load(file)
 
 # Load the trained scaler
@@ -48,19 +48,7 @@ if submit:
         'gender': gender,
         'InternetService': InternetService,
         'OnlineBackup': OnlineBackup
-        
     }
-
-    #print(user_data.dtypes)
-
-    # Assuming categorical_columns contains the names of categorical columns
-    user_data[categorical_columns] = user_data[categorical_columns].astype('category')
-
-    print(user_data.isnull().sum())
-
-    # Assuming numerical_columns contains the names of numerical columns
-    user_data[numerical_columns] = user_data[numerical_columns].apply(pd.to_numeric, errors='coerce')
-
 
     # Create a DataFrame with user input
     user_data = pd.DataFrame([user_response])
