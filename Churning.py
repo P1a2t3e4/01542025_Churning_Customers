@@ -8,6 +8,11 @@ label_encoder_file = "label_encoder.pkl"
 with open(label_encoder_file, 'rb') as file:
     label_encoder = pickle.load(file)
 
+# Load the saved best model
+best_model_file = "best_model .pkl"
+with open(best_model_file, 'rb') as file:
+    best_model = pickle.load(file)
+
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
                 'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
@@ -41,6 +46,13 @@ def main():
         # Display the preprocessed input DataFrame
         st.write("## Preprocessed Input Data")
         st.write(input_df)
+
+        # Make prediction using the best model
+        prediction = best_model.predict(input_df)
+        
+        # Display the prediction
+        st.write("## Prediction")
+        st.write(f"The predicted churn status is: {prediction[0]}")
 
 if __name__ == "__main__":
     main()
