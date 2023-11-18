@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # Load the trained model
-with open(r'best_model.pkl', 'rb') as file:
+with open(r'best_model .pkl', 'rb') as file:
     best_module = pickle.load(file)
 
 # Load the trained scaler
