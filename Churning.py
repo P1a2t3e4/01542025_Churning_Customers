@@ -21,6 +21,19 @@ with open(best_model_file, 'rb') as file:
 # Compile the model
 best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+
+# Load the scaler
+with open('scaler.pkl', 'rb') as file:
+    scaler = pickle.load(file)
+
+# Assuming X_input is your input data (e.g., user input)
+# Apply the same scaling to the input features
+X_input_scaled = scaler.transform(X_input)
+
+# Make predictions using the loaded model
+predictions = best_model.predict(X_input_scaled)
+
+
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
                 'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
