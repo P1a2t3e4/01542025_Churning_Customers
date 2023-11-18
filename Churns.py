@@ -41,52 +41,29 @@ def main():
             'gender': [gender],
             'OnlineBackup': [OnlineBackup]
         })
-# ... (previous code)
 
-# Make a prediction
-if st.button('Predict Churn'):
-    # Transform user input
-    user_input = pd.DataFrame({
-        'tenure': [tenure],
-        'MonthlyCharges': [MonthlyCharges],
-        'TotalCharges': [TotalCharges],
-        'Contract': [Contract],
-        'OnlineSecurity': [OnlineSecurity],
-        'PaymentMethod': [PaymentMethod],
-        'TechSupport': [TechSupport],
-        'InternetService': [InternetService],
-        'gender': [gender],
-        'OnlineBackup': [OnlineBackup]
-    })
+        # Encode categorical variables
+        label_encoder = LabelEncoder()
+        categorical_columns = ['Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'OnlineBackup', 'gender']
 
-    # Encode categorical variables
-    label_encoder = LabelEncoder()
-    categorical_columns = ['Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'OnlineBackup', 'gender']
+        for column in categorical_columns:
+            user_input[column] = label_encoder.fit_transform(user_input[column])
 
-    for column in categorical_columns:
-        user_input[column] = label_encoder.fit_transform(user_input[column])
+        # Ensure feature names match the training phase
+        expected_features = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup']
+        assert user_input.columns.tolist() == expected_features, "Feature names do not match"
 
-    # Print feature names for debugging
-    print("User Input Feature Names:", user_input.columns)
+        # Scale the input
+        scaled_input = scaler.transform(user_input)
 
-    # Ensure feature names match the training phase
-    expected_features = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'OnlineSecurity', 'PaymentMethod', 'TechSupport', 'InternetService', 'gender', 'OnlineBackup']
-    print("Expected Features:", expected_features)
+        # Make a prediction
+        prediction = model.predict(scaled_input)
 
-    assert user_input.columns.tolist() == expected_features, "Feature names do not match"
+        # Display the result
+        churn_probability = prediction[0]
+        churn_prediction = 'Yes, Customer will Churn' if churn_probability >= 0.5 else 'Customer will not Churn'
+        st.write(f'Churn Probability: {churn_probability}')
+        st.write(f'Prediction: {churn_prediction}')
 
-    # Scale the input
-    scaled_input = scaler.transform(user_input)
-
-    # Make a prediction
-    prediction = model.predict(scaled_input)
-
-    # Display the result
-    churn_probability = prediction[0]
-    churn_prediction = 'Yes, Customer will Churn' if churn_probability >= 0.5 else 'Customer will not Churn'
-    st.write(f'Churn Probability: {churn_probability}')
-    st.write(f'Prediction: {churn_prediction}')
-
-        
 if __name__ == '__main__':
     main()
