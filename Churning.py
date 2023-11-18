@@ -62,5 +62,5 @@ def main():
         st.write(f'Churn Probability: {churn_probability}')
         st.write(f'Prediction: {churn_prediction}')
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     main()
