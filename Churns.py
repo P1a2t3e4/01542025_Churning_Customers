@@ -27,21 +27,24 @@ def main():
     OnlineBackup = st.radio("Do you have online backup", ["YES", "NO"])
 
     # Make a prediction
-  if st.button('Predict Churn'):
-      
-        # Transform user input
-        user_input = pd.DataFrame({
-        'tenure': [tenure],
-        'MonthlyCharges': [MonthlyCharges],
-        'TotalCharges': [TotalCharges],
-        'Contract': [Contract],
-        'OnlineSecurity': [OnlineSecurity],
-        'PaymentMethod': [PaymentMethod],
-        'TechSupport': [TechSupport],
-        'InternetService': [InternetService],
-        'gender': [gender],
-        'OnlineBackup': [OnlineBackup]
+if st.button('Predict Churn'):
+     user_input = pd.DataFrame({
+    'tenure': [tenure],
+    'MonthlyCharges': [MonthlyCharges],
+    'TotalCharges': [TotalCharges],
+    'Contract': [Contract],
+    'OnlineSecurity': [OnlineSecurity],
+    'PaymentMethod': [PaymentMethod],
+    'TechSupport': [TechSupport],
+    'InternetService': [InternetService],
+    'gender': [gender],
+    'OnlineBackup': [OnlineBackup]
         })
+    
+       
+      
+    # Transform user input
+
 
      class CustomScaler(StandardScaler):
     def __init__(self, input_features=None, **kwargs):
