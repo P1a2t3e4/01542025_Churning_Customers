@@ -2,6 +2,16 @@ import streamlit as st
 import pickle
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+import tensorflow as tf
+
+@tf.function
+def predict_with_model(model, data):
+    return model.predict(data)
+
+# ...
+
+prediction = predict_with_model(best_model, input_df)
+
 
 # Load the saved label encoder
 label_encoder_file = "label_encoder.pkl"
