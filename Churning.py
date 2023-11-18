@@ -38,7 +38,7 @@ def preprocess_input(user_input):
     return user_input
 
 
-# Streamlit app
+
 # Streamlit app
 def main():
     st.title("Customer Churn Prediction")
@@ -61,12 +61,13 @@ def main():
         # Check the input data shape before making predictions
         print("Input data shape:", input_df.shape)
 
-        # Make predictions using the best model
         try:
+            # Make predictions using the best model
             prediction = best_model.predict(input_df)
             print("Prediction successful")
         except Exception as e:
             print("Prediction failed. Error:", e)
+            st.error(f"Prediction failed. Error: {e}")
 
         # Display the preprocessed input DataFrame
         st.write("## Preprocessed Input Data")
@@ -74,8 +75,8 @@ def main():
 
         # Display the prediction
         st.write("## Prediction")
-        st.write(f"The predicted churn status is: {prediction[0]}")
+        if 'prediction' in locals():
+            st.write(f"The predicted churn status is: {prediction[0]}")
 
 if __name__ == "__main__":
     main()
-
