@@ -8,6 +8,15 @@ from sklearn.preprocessing import StandardScaler
 best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
+
+# Load the saved label encoder
+label_encoder_file = "label_encoder.pkl"
+with open(label_encoder_file, 'rb') as file:
+    label_encoder = pickle.load(file)
+
+# Now you can use label_encoder.transform in your Streamlit app
+
+
 # Encode categorical variables
 label_encoder = LabelEncoder()
 categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
