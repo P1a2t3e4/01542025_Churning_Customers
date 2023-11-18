@@ -52,6 +52,28 @@ def preprocess_input(user_input):
 
 
 
+
+# Load the scaler
+scaler_file = 'scaler.pkl'  # Update with the correct file path if needed
+with open(scaler_file, 'rb') as file:
+    scaler = pickle.load(file)
+
+# Assuming X_input is your input data (e.g., user input)
+# Check the shape of X_input
+print("Shape of X_input:", X_input.shape)
+
+# Check the features in X_input
+print("Features in X_input:", X_input.columns)
+
+# Apply the same scaling to the input features
+X_input_scaled = scaler.transform(X_input)
+
+# Make predictions using the loaded model
+predictions = best_model.predict(X_input_scaled)
+
+
+
+
 # Streamlit app
 def main():
     st.title("Customer Churn Prediction")
