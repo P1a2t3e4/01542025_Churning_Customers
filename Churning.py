@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 # Load the best model and preprocessing objects
-best_model = pickle.load(open("best_model.pkl", "rb"))
+best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
 # Load the label encoder only if it exists (check if the file exists)
