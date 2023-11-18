@@ -9,8 +9,6 @@ with open(r'best_model (1).pkl', 'rb') as file:
 
 with open(r'scaler.pkl', 'rb') as file:
     scaler = pickle.load(file)
-#...
-
 
 # Streamlit app
 def main():
@@ -21,7 +19,7 @@ def main():
     MonthlyCharges = st.slider("What is your monthly charges", 0, 120)
     TotalCharges = st.slider("What is your total charges", 0, 10000)
     Contract = st.radio("What is your contract", ["Month-to-month", "One year", "Two year"])
-    PaymentMethod = st.radio("What is your payment method",["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
+    PaymentMethod = st.radio("What is your payment method", ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
     OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
     TechSupport = st.radio("Do you have tech support", ["YES", "NO"])
     InternetService = st.radio("What is your internet service", ["DSL", "Fiber optic", "No"])
@@ -33,16 +31,15 @@ def main():
         # Transform user input
         user_input = pd.DataFrame({
             'tenure': [tenure],
-            'MonthlyCharges': [monthly_charges],
-            'TotalCharges': [total_charges],
-            'Contract': [contract],
-            'OnlineSecurity': [online_security],
-            'PaymentMethod': [payment_method],
-            'TechSupport': [tech_support],
-            'InternetService': [internet_service],
+            'MonthlyCharges': [MonthlyCharges],
+            'TotalCharges': [TotalCharges],
+            'Contract': [Contract],
+            'OnlineSecurity': [OnlineSecurity],
+            'PaymentMethod': [PaymentMethod],
+            'TechSupport': [TechSupport],
+            'InternetService': [InternetService],
             'gender': [gender],
-            'OnlineBackup': [online_backup]
-            
+            'OnlineBackup': [OnlineBackup]
         })
 
         # Encode categorical variables
@@ -53,7 +50,7 @@ def main():
             user_input[column] = label_encoder.fit_transform(user_input[column])
 
         # Scale the input
-        scaled_input = scaled.transform(user_input)
+        scaled_input = scaler.transform(user_input)
 
         # Make a prediction
         prediction = model.predict(scaled_input)
@@ -65,13 +62,4 @@ def main():
         st.write(f'Prediction: {churn_prediction}')
 
 if __name__ == '__main__':
-    # Add your main code block here
-    # This block will only run if the script is executed directly, not when imported as a module
-
-    main(),
-
-
-
-
-
-
+    main()
