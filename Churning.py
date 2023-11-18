@@ -58,7 +58,7 @@ if submit:
        
 
         
-        scaler_module.fit(original_data)
+        #scaler_module.fit(original_data)
         newData = scaler_module.transform(newData)
 
 
