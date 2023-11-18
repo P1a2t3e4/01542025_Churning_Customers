@@ -53,7 +53,7 @@ if submit:
 
         #print(newData.shape)  # Print the shape of newData
 
-        newData = newData.astype(float)  # Convert all columns to float, for example
+        #newData = newData.astype(float)  # Convert all columns to float, for example
 
        
 
