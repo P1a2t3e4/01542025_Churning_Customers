@@ -6,6 +6,10 @@ import pickle
 
 # CustomScaler class to ensure consistent feature names
 class CustomScaler(StandardScaler):
+    def __init__(self, input_features=None, **kwargs):
+        super().__init__(**kwargs)
+        self.input_features = input_features
+
     def transform(self, X, y=None, **kwargs):
         if self.input_features:
             X = X[self.input_features]
