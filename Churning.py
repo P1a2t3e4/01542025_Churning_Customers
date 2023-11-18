@@ -8,6 +8,9 @@ best_model = pickle.load(open("best_model .pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 label_encoder = pickle.load(open("label_encoder.pkl", "rb"))
 
+# Assuming top_features is defined somewhere in your script or loaded from a file
+top_features = [...]  # Replace [...] with the actual definition or loading logic
+
 # Function to preprocess user input
 def preprocess_input(user_input):
     # Assuming user_input is a dictionary with keys as column names
@@ -21,10 +24,6 @@ def preprocess_input(user_input):
     input_df[top_features] = scaler.transform(input_df[top_features])
 
     return input_df
-
-# Streamlit app
-# Streamlit app
-# Assuming top_features is defined outside the main() function or as a global variable
 
 # Streamlit app
 def main():
