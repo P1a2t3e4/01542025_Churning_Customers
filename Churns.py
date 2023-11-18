@@ -64,7 +64,10 @@ def main():
         st.write(f'Churn Probability: {churn_probability}')
         st.write(f'Prediction: {churn_prediction}')
 
-if _name_ == '_main_':
+if __name__ == '__main__':
+    # Add your main code block here
+    # This block will only run if the script is executed directly, not when imported as a module
+
     main(),
 
 
