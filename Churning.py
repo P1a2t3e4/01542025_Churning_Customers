@@ -4,13 +4,8 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 import tensorflow as tf
 
-@tf.function
-def predict_with_model(model, data):
-    return model.predict(data)
 
-# ...
 
-prediction = predict_with_model(best_model, input_df)
 
 
 # Load the saved label encoder
@@ -73,6 +68,12 @@ def main():
         # Display the prediction
         st.write("## Prediction")
         st.write(f"The predicted churn status is: {prediction[0]}")
+
+@tf.function
+def prediction = predict_with_model(best_model, input_df):
+    return model.predict(input_df)
+
+# ...
 
 if __name__ == "__main__":
     main()
