@@ -1,91 +1,47 @@
-import requests
-import pickle
 import streamlit as st
-import numpy as np
+import pickle
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
+# Load the best model and preprocessing objects
+best_model = pickle.load(open("best_model.pkl", "rb"))
+scaler = pickle.load(open("scaler.pkl", "rb"))
+label_encoder = pickle.load(open("label_encoder.pkl", "rb"))
 
-# Load the trained model
-with open(r'best_model .pkl', 'rb') as file:
-    best_module = pickle.load(file)
+# Function to preprocess user input
+def preprocess_input(user_input):
+    # Assuming user_input is a dictionary with keys as column names
+    input_df = pd.DataFrame([user_input])
+    
+    # Apply label encoding to categorical columns
+    for col in input_df.select_dtypes(include=['object']).columns:
+        input_df[col] = label_encoder.transform(input_df[col])
+    
+    # Scale numerical features using the previously trained scaler
+    input_df[top_features] = scaler.transform(input_df[top_features])
 
-# Load the trained scaler
-with open(r'scaler.pkl', 'rb') as file:
-    scaler_module = pickle.load(file)
+    return input_df
 
-# Set Streamlit page configuration
-st.set_page_config(
-    page_title="CUSTOMER CHURN PREDICTIONS",
-    page_icon=":wave:",
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
+# Streamlit app
+def main():
+    st.title("Customer Churn Prediction")
 
-# Streamlit sidebar for user input
-st.sidebar.header("Enter Customer Details", divider='rainbow')
-MonthlyCharges = st.slider("What is your monthly charges", 0, 120)
-tenure = st.slider("How long have you been a customer", 1, 100)
-TotalCharges = st.slider("What is your total charges", 0, 10000)
-Contract = st.radio("What is your contract", ["Month-to-month", "One year", "Two year"])
-PaymentMethod = st.radio("What is your payment method", ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
-OnlineSecurity = st.radio("Do you have online security", ["YES", "NO"])
-TechSupport = st.radio("Do you have tech support", ["YES", "NO"])
-gender = st.radio("What is your gender", ["Male", "Female"])
-InternetService = st.radio("What is your internet service", ["DSL", "Fiber optic", "No"])
-OnlineBackup = st.radio("Do you have online backup", ["YES", "NO"])
+    # User input form
+    st.sidebar.header("User Input")
+    user_input = {}
+    for feature in top_features:
+        user_input[feature] = st.sidebar.text_input(f"Enter {feature}", "")
 
-submit = st.button("Submit")
+    if st.sidebar.button("Predict"):
+        # Preprocess user input
+        input_df = preprocess_input(user_input)
 
-# If the user clicks Submit
-if submit:
-    user_response = {
-        'MonthlyCharges': MonthlyCharges,
-        'tenure': tenure,
-        'TotalCharges': TotalCharges,
-        'Contract': Contract,
-        'PaymentMethod': PaymentMethod,
-        'OnlineSecurity': OnlineSecurity,
-        'TechSupport': TechSupport,
-        'gender': gender,
-        'InternetService': InternetService,
-        'OnlineBackup': OnlineBackup
-    }
+        # Make predictions using the best model
+        prediction = best_model.predict(input_df)
 
+        # Display the prediction
+        st.write("## Prediction")
+        st.write(f"The predicted churn status is: {prediction[0]}")
 
-     # Encode categorical variables
-    label_encoder = LabelEncoder()
-    categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
-       'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
-       'InternetService', 'OnlineBackup']
-        
-    for column in categorical_columns:
-      # from sklearn.preprocessing import LabelEncoder
-
-    # Assuming 'column' is the name of the column you want to encode
-        label_encoder = LabelEncoder()
-        #user_input[column] = label_encoder.fit_transform(user_input[column])
-
-#user_input[column].fillna("unknown", inplace=True)
-        user_input[column] = label_encoder.fit_transform(user_input[column])
-
-
-    column = "valid_column_name"
-    user_input[column] = label_encoder.fit_transform(user_input[column])
-
-        # Scale the input
-    scaled_input = scaled.transform(user_input)
-    # # Create a DataFrame with user input
-    # user_data = pd.DataFrame([user_response])
-
-    # # Ensure that columns have the correct data types
-    # user_data = user_data.astype({'MonthlyCharges': float, 'tenure': float, 'TotalCharges': float})
-
-    # # Transform user input with the scaler
-    # scaled_data = scaler_module.transform(user_data)
-
-    # Make prediction with the model
-    predict = best_module.predict(scaled_input )
-
-    # Display the prediction
-    st.subheader(f"The customer churn rate is {round(predict[0], 2)}", divider='rainbow')
+if __name__ == "__main__":
+    main()
