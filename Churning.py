@@ -86,32 +86,33 @@ def main():
         widget_id = f"{feature}_input"
         user_input[feature] = st.sidebar.text_input(f"Enter {feature}", key=widget_id)
 
-    if st.sidebar.button("Predict"):
-        # Preprocess user input
-        input_df = pd.DataFrame([preprocess_input(user_input)])
+    # ... (previous code)
 
-        # Compile the model before making predictions
-        best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+if st.sidebar.button("Predict"):
+    # Preprocess user input
+    input_df = pd.DataFrame([preprocess_input(user_input)])
 
-        # Check the input data shape before making predictions
-        print("Input data shape:", input_df.shape)
+    # Compile the model before making predictions
+    best_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-        try:
-            # Make predictions using the best model
-            prediction = best_model.predict(input_df)
-            print("Prediction successful")
-        except Exception as e:
-            print("Prediction failed. Error:", e)
-            st.error(f"Prediction failed. Error: {e}")
+    # Check the input data shape before making predictions
+    st.write("Input data shape:", input_df.shape)
 
-        # Display the preprocessed input DataFrame
-        st.write("## Preprocessed Input Data")
-        st.write(input_df)
+    try:
+        # Make predictions using the best model
+        prediction = best_model.predict(input_df)
+        st.write("Prediction successful")
+    except Exception as e:
+        st.error(f"Prediction failed. Error: {e}")
+        st.stop()
 
-        # Display the prediction
-        st.write("## Prediction")
-        if 'prediction' in locals():
-            st.write(f"The predicted churn status is: {prediction[0]}")
+    # Display the preprocessed input DataFrame
+    st.write("## Preprocessed Input Data")
+    st.write(input_df)
 
-if __name__ == "__main__":
-    main()
+    # Display the prediction
+    st.write("## Prediction")
+    if 'prediction' in locals():
+        st.write(f"The predicted churn status is: {prediction[0]}")
+
+# ... (remaining code)
