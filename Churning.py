@@ -60,7 +60,12 @@ if submit:
        'InternetService', 'OnlineBackup']
         
     for column in categorical_columns:
-        user_input[column] = label_encoder.fit_transform(user_input[column])
+      # from sklearn.preprocessing import LabelEncoder
+
+    # Assuming 'column' is the name of the column you want to encode
+    label_encoder = LabelEncoder()
+    user_input[column] = label_encoder.fit_transform(user_input[column])
+
 
         # Scale the input
     scaled_input = scaled.transform(user_input)
