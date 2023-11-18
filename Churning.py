@@ -52,16 +52,16 @@ if submit:
 
 
      # Encode categorical variables
-        label_encoder = LabelEncoder()
-        categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
+    label_encoder = LabelEncoder()
+    categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
        'InternetService', 'OnlineBackup']
         
-        for column in categorical_columns:
-            user_input[column] = label_encoder.fit_transform(user_input[column])
+    for column in categorical_columns:
+        user_input[column] = label_encoder.fit_transform(user_input[column])
 
         # Scale the input
-        scaled_input = scaled.transform(user_input)
+    scaled_input = scaled.transform(user_input)
     # # Create a DataFrame with user input
     # user_data = pd.DataFrame([user_response])
 
