@@ -5,7 +5,8 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 # Load the best model and preprocessing objects
-best_model = pickle.load(open("best_model .pkl", "rb"))
+# Load the best model and preprocessing objects
+best_model = pickle.load(open("best_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
 label_encoder_file = "label_encoder.pkl"
@@ -13,9 +14,10 @@ if os.path.exists(label_encoder_file):
     with open(label_encoder_file, 'rb') as file:
         label_encoder = pickle.load(file)
         # Check if label_encoder is fitted
-        if hasattr(label_encoder, "classes_"):
-            st.success("Label encoder loaded successfully.")
-        else:
+        try:
+            if label_encoder.classes_ is not None:
+                st.success("Label encoder loaded successfully.")
+        except AttributeError:
             st.error("Label encoder is not fitted. Make sure to fit and save the label encoder during training.")
             st.stop()
 else:
