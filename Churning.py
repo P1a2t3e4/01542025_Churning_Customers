@@ -42,6 +42,19 @@ attributes = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
        'InternetService', 'OnlineBackup']
 if submit:
+        newData = newData.dropna()  # Drop rows with missing values
+    # Assuming numerical_columns contains the names of numerical columns
+        newData[numerical_columns] = newData[numerical_columns].apply(pd.to_numeric, errors='coerce')
+        
+        # Assuming original_data_shape is a tuple representing the shape of the original data
+        if newData.shape[1] != original_data_shape[1]:
+            raise ValueError("Number of columns in newData does not match the original data.")
+        
+        scaler_module.fit(original_data)
+        newData = scaler_module.transform(newData)
+
+
+
         newData = pd.DataFrame([user_response],columns= attributes)
         scaledData = scaler_module.transform(newData)
         predict = best_module.predict(scaledData)
