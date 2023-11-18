@@ -19,7 +19,7 @@ st.set_page_config(
 
 st.sidebar.header("Enter Customer Details", divider='rainbow')
 
-gender = st.radio("What is your gender","Male","Female")
+gender = st.radio("What is your gender", ["Male", "Female"])
 SeniorCitizen = st.radio("Are you a senior citizen ","YES","NO")
 tenure = st.slider("How long have you been a customer",1,100)
 InternetService = st.radio("What is your internet service","DSL","Fiber optic","No")
