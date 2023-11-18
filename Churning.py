@@ -43,10 +43,10 @@ attributes = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'InternetService', 'OnlineBackup']
 if submit:
         
-    Assuming numerical_columns contains the names of numerical columns
+    #Assuming numerical_columns contains the names of numerical columns
         newData[numerical_columns] = newData[numerical_columns].apply(pd.to_numeric, errors='coerce')
         
-        Assuming original_data_shape is a tuple representing the shape of the original data
+       # Assuming original_data_shape is a tuple representing the shape of the original data
         if newData.shape[1] != original_data_shape[1]:
             raise ValueError("Number of columns in newData does not match the original data.")
 
