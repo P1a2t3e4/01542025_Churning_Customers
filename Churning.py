@@ -51,7 +51,7 @@ if submit:
         
     }
 
-    print(user_data.dtypes)
+    #print(user_data.dtypes)
 
     # Assuming categorical_columns contains the names of categorical columns
     user_data[categorical_columns] = user_data[categorical_columns].astype('category')
