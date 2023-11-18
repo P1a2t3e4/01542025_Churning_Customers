@@ -18,7 +18,7 @@ with open(label_encoder_file, 'rb') as file:
 
 
 # Encode categorical variables
-label_encoder = LabelEncoder()
+#label_encoder = LabelEncoder()
 categorical_columns = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
        'InternetService', 'OnlineBackup']
