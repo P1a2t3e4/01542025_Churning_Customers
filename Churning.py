@@ -1,5 +1,5 @@
 import streamlit as st
-import os  # Import the os module
+import os
 import pickle
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -10,7 +10,8 @@ scaler = pickle.load(open("scaler.pkl", "rb"))
 
 label_encoder_file = "label_encoder.pkl"
 if os.path.exists(label_encoder_file):
-    label_encoder = pickle.load(open(label_encoder_file, "rb"))
+    with open(label_encoder_file, 'rb') as file:
+        label_encoder = pickle.load(file)
 else:
     st.error("Label encoder file not found. Make sure to fit and save the label encoder during training.")
     st.stop()
@@ -18,13 +19,13 @@ else:
 # Assuming top_features is defined somewhere in your script or loaded from a file
 top_features = ['MonthlyCharges', 'tenure', 'TotalCharges', 'Contract',
        'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'gender',
-       'InternetService', 'OnlineBackup'] # Replace [...] with the actual definition or loading logic
+       'InternetService', 'OnlineBackup']  # Replace [...] with the actual definition or loading logic
 
 # Function to preprocess user input
 def preprocess_input(user_input):
     # Assuming user_input is a dictionary with keys as column names
     input_df = pd.DataFrame([user_input])
-    
+
     # Check if label_encoder is fitted
     if label_encoder is not None and hasattr(label_encoder, "classes_"):
         # Apply label encoding to categorical columns
@@ -62,6 +63,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-      
