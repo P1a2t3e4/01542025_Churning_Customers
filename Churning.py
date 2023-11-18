@@ -24,9 +24,10 @@ def preprocess_input(user_input):
 
 # Streamlit app
 # Streamlit app
-def main():
-    global top_features  # Declare top_features as a global variable
+# Assuming top_features is defined outside the main() function or as a global variable
 
+# Streamlit app
+def main():
     st.title("Customer Churn Prediction")
 
     # User input form
