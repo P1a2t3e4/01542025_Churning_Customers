@@ -23,7 +23,10 @@ def preprocess_input(user_input):
     return input_df
 
 # Streamlit app
+# Streamlit app
 def main():
+    global top_features  # Declare top_features as a global variable
+
     st.title("Customer Churn Prediction")
 
     # User input form
