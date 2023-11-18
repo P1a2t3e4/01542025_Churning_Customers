@@ -47,6 +47,7 @@ if st.button('Predict Churn'):
 
 
      class CustomScaler(StandardScaler):
+         
 def __init__(self, input_features=None, **kwargs):
     super().__init__(**kwargs)
     self.input_features = input_features
